@@ -7,43 +7,33 @@ export default function App() {
     </div>
   );
 }
-function Count() {
-  // alert("cheack   re-rendered");
-  return (
+function Count({setcount}){
+  alert("Count rerendered");
+  return(
+    
     <>
-      <RecoilRoot>
-      <CountRenderer />
-      <Buttons />
-      </RecoilRoot>
-
+    <CountRenderer/>
+     <Buttons setcount={setcount}/>  
     </>
   );
 }
-function CountRenderer() {
-  const count = useRecoilValue(countAtom);
-  return <>
-  <h1>{count}</h1>
-  <EvenCountRenderer/>
-  </>
-  ;
-
+function CountRenderer(){
+  const  count = useContext(CountContext); 
+  return (<h1>
+    {count}
+  </h1>
+  )
 }
-function Buttons() {
-  // const [count,setcount] = useRecoilState(countAtom);
-  const setcount = useSetRecoilState(countAtom);
-  // alert("buttons rerendered");
-  return (
-    <>
-      <button onClick={() => {setcount(count => count + 1)}}>Increase</button>
-      <button onClick={() => {setcount(count => count - 1)}}>Decrease</button>
-    </>
-  );
+function Buttons({setcount}){
+  const count = useContext(CountContext);
+  return (<> 
+  <button onClick={()=>setcount(count+1)}>
+    Increase
+  </button>
+  <button onClick={()=>setcount(count-1)}>
+  Decrease
+</button>
+</>
+  )
 }
-function EvenCountRenderer(){
-  const isEven = useRecoilValue(evenSelector);
-  return <>
-  <h2>
-    {!isEven? "it is even":"it is odd"}
-  </h2>
-  </>
-}
+export default App;
