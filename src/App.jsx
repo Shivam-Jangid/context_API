@@ -1,39 +1,48 @@
-import { useRecoilValue, RecoilRoot ,useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilValue, RecoilRoot , useSetRecoilState } from "recoil";
 import { countAtom, evenSelector } from "./store/atoms/count";
 export default function App() {
   return (
     <div>
+      <RecoilRoot>
         <Count />
+        </RecoilRoot>
     </div>
   );
 }
-function Count({setcount}){
-  alert("Count rerendered");
+function Count(){
+  // alert("Count rerendered");
   return(
-    
     <>
     <CountRenderer/>
-     <Buttons setcount={setcount}/>  
+     <Buttons />
     </>
   );
 }
 function CountRenderer(){
-  const  count = useContext(CountContext); 
-  return (<h1>
+  const count = useRecoilValue(countAtom);
+  return (<>
+  <h1>
     {count}
   </h1>
+  <EvenRendered/>
+  </>
   )
 }
-function Buttons({setcount}){
-  const count = useContext(CountContext);
+function Buttons(){
+  const setcount = useSetRecoilState(countAtom);
   return (<> 
-  <button onClick={()=>setcount(count+1)}>
+  <button onClick={()=>setcount(count => count+1)}>
     Increase
   </button>
-  <button onClick={()=>setcount(count-1)}>
+  <button onClick={()=>setcount(count => count-1)}>
   Decrease
 </button>
 </>
   )
 }
-export default App;
+function EvenRendered(){
+  const isEven = useRecoilValue(evenSelector);
+  return <h2>
+    {(!isEven)?" it is even":"it is odd"}
+  </h2>
+}
