@@ -12,7 +12,9 @@ function App() {
   )
 }
 function Count({setcount}){
+  alert("Count rerendered");
   return(
+    
     <>
     <CountRenderer/>
      <Buttons setcount={setcount}/>  
