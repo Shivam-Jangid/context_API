@@ -24,7 +24,7 @@ function CountRenderer() {
   return <h1>{count}</h1>;
 }
 function Buttons() {
-  const setcount = useRecoilState(countAtom);
+  const setcount = useSetRecoilState(countAtom);
   // alert("buttons rerendered");
   return (
     <>
