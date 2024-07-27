@@ -8,6 +8,7 @@ export default function App() {
   );
 }
 function Count() {
+  // alert("cheack re-rendered");
   return (
     <>
       <RecoilRoot>
@@ -23,11 +24,12 @@ function CountRenderer() {
   return <h1>{count}</h1>;
 }
 function Buttons() {
-  const [count, setcount] = useRecoilState(countAtom);
+  const setcount = useRecoilState(countAtom);
+  // alert("buttons rerendered");
   return (
     <>
-      <button onClick={() => setcount(count + 1)}>Increase</button>
-      <button onClick={() => setcount(count - 1)}>Decrease</button>
+      <button onClick={() => {setcount(count => count + 1)}}>Increase</button>
+      <button onClick={() => {setcount(count => count - 1)}}>Decrease</button>
     </>
   );
 }
